@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Exam System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Online Exam System</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/add_exam">Create Exam</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <section id="exams">
+            <h2>Available Exams</h2>
+            <div class="exam-list">
+                {% for exam in exams %}
+                <div class="exam">
+                    <h3>{{ exam.title }}</h3>
+                    {% if is_admin %}
+                    <a href="{{ url_for('add_question', exam_id=exam.id) }}">Add Questions</a>
+                    {% else %}
+                    <a href="{{ url_for('take_exam', exam_id=exam.id) }}">Take Exam</a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Online Exam System</p>
+    </footer>
+</body>
+</html>
